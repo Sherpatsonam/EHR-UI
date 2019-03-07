@@ -1,0 +1,121 @@
+<div class= "table-responsive" style="font-family:arial;width:100%">
+        <h3 align="center" style="background-color:powderblue">Search Patient</h3>
+        <br>
+        <div class="table-responsive"  style="background-color:rgba(66, 86, 112, 0.329);font-family:arial;width:100%">
+        <table align="center" style="width:100%">
+          <form #userForm="ngForm" >
+          <tr>
+            <div class="col-md-2">      
+              <label>Name:</label>
+              <input type="text" #patientName="ngModel" minlength="4" maxlength="10" required class="form-control" name="patientName" [(ngModel)]="nameFilter"
+                ngModel>
+              <div *ngIf="patientName.errors && (patientName.dirty || patientName.touched)" class="alert alert-danger">
+                <div [hidden]="!patientName.errors.required">
+                  Please a valid name.
+                </div>
+                <div [hidden]="!patientName.errors.minlength">
+                  Please enter at least 4 characters.
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2" >
+                
+                 <label>ZipCode:</label>
+                 <input type="text" #patientZip="ngModel" pattern="^[1-9][0-9]{4}$" class="form-control"  required name="patientZip" [(ngModel)]="zipFilter" ngModel>
+                 <div *ngIf="patientZip.errors && (patientZip.dirty || patientZip.touched)" class="alert alert-danger">
+                   <div [hidden]="!patientZip.errors.pattern">
+                     Please enter a valid five digit Zip code.
+                   </div>
+                 </div>
+               
+               </div>
+               <div class="col-sm-2">
+                <label>Gender:</label><br>
+                         <select class="form-control"required [(ngModel)]="genderFilter" name="gender">
+                <option value="male">Male</option>
+                 <option value="female">Female</option>
+                 
+              </select>
+             
+           </div>
+           <div class="col-md-2">
+              <label>Year:</label>
+              <input type="text" #pyear="ngModel" minlength="4" maxlength="4" required class="form-control" name="pyear" [(ngModel)]="year"
+                ngModel>
+              <div *ngIf="pyear.errors && (pyear.dirty || pyear.touched)" class="alert alert-danger">
+                <div [hidden]="!pyear.errors.required">
+                  Please a valid year.
+                </div>
+                <div [hidden]="!pyear.errors.minlength">
+                  Please enter at least 4 characters.
+                </div>
+              </div>
+           </div>
+            
+              <div class="col-md-2">
+              <label>Month:</label><br>
+              <!-- <month-picker (change)="onMonthChange($event.target.value)"> </month-picker> -->
+              <select class="form-control"  required [(ngModel)]="month" name="month">
+                
+                <option *ngFor="let n of monthArray" [value]="n.val">{{n.name}}</option>
+              </select>
+              </div>
+        
+              <div class="col-md-2">
+                <label>Date:</label><br>
+                  <select class="form-control"  required [(ngModel)]="day" name="day">
+          
+                    <option *ngFor="let n of dayArray" [value]="n">{{n}}</option>
+                  </select>
+              </div>
+           
+        </tr>
+            
+            <tr>
+                <br>
+                <div align="right" class="col-md-12">
+                    <button *ngIf="add" type="button" class="btn btn-info"  [routerLink]="['add']" >Add Records</button>
+                    <button [disabled]="!userForm.form.valid" type="submit" class="btn btn-success" (click)="search()">Search</button>
+                    <button type="reset" class="btn btn-info" (click)="reset()">Reset</button>
+               
+              
+              </div>
+            </tr>
+             
+               </form>
+        </table>
+        </div>
+<br><br>
+        <div *ngIf="showTable">
+        <div class= "table-responsive" style="width:100%">
+          <table class="table table-hover table-bordered" align="center" style="width:100%">
+                 
+              <tr *ngIf="patients && patients.length"  style="background-color:powderblue;font-family:arial;width:100%">
+                          
+                         
+                           
+                              <th style="text-align:center">Name</th>
+                              <th style="text-align:center">DOB</th>
+                              <th style="text-align:center">Gender</th>
+                              <th style="text-align:center">Address</th>
+                          </tr>
+                          <!-- <tr *ngFor="let pat of patients |patientfilter: nameFilter:zipFilter"  class='clickable-row' style="font-family:arial;width:100%"  [routerLink]="[pat.id]"> -->
+                          <tr *ngFor="let pat of patients "  class='clickable-row' style="font-family:arial;width:100%"  [routerLink]="[pat.id]">
+                            <td style="text-align:center">{{pat.lastName |uppercase}},{{pat.firstName |uppercase}}  </td>
+                            <td style="text-align:center">{{pat.dob | date}}</td>
+                            <td style="text-align:center">{{pat.gender}}</td>
+                            <td style="text-align:center">{{pat.address.street}},{{pat.address.city}},{{pat.address.state}},{{pat.address.zipCode}}</td>
+                         </tr>     
+                 
+          </table>
+        </div>
+      </div>
+          
+            <div *ngIf="add" class="col-lg-10">
+              <h3 align="center">No records found. Please add your profile.</h3>
+             
+            </div>
+         
+              
+          
+  

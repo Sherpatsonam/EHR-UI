@@ -1,0 +1,285 @@
+<div class="container">
+    <div>
+        <h3 align="center">Electronic health Records</h3>
+    </div>
+    <ul class="nav nav-tabs">
+        <li class="active" ><a href="#pat" data-toggle="tab" ><b>Patients</b></a></li>
+        <li><a href="#All" data-toggle="tab" ><b>Allergy</b></a></li>
+       
+    </ul>
+    <div class="tab-content" >
+        <div class="tab-pane active" id="pat">
+           <table>
+            
+                    <form #userForm="ngForm" >
+                    <tr> 
+                      <div >
+                        <br>
+                      <label>Patient Id:</label> {{currentPatient.id}}
+                        <h4 align="center"style="background-color: powderblue;font-family:arial;width:100%">Patient Information</h4>
+                        </div>
+                <div class="col-md-3">
+                    <label>First Name:</label>
+                    <input type="text" #patientName="ngModel" minlength="4" maxlength="10" required class="form-control" name="patientName" [(ngModel)]="currentPatient.firstName"
+                      ngModel>
+                    <div *ngIf="patientName.errors && (patientName.dirty || patientName.touched)" class="alert alert-danger">
+                      <div [hidden]="!patientName.errors.required">
+                        Please a valid first name.
+                      </div>
+                      <div [hidden]="!patientName.errors.minlength">
+                        Please enter at least 4 characters.
+                      </div>
+                    </div>
+                  </div>
+                  
+                  
+                  
+                  <div class="col-md-3">
+                        <label>Middle Name:</label>
+                        <input type="text" #patientmName="ngModel" minlength="4" maxlength="10" required class="form-control" name="patientmName" [(ngModel)]="currentPatient.middleName"
+                          ngModel>
+                        <div *ngIf="patientmName.errors && (patientmName.dirty || patientmName.touched)" class="alert alert-danger">
+                          <div [hidden]="!patientmName.errors.required">
+                            Please a valid middle name.
+                          </div>
+                          <div [hidden]="!patientmName.errors.minlength">
+                            Please enter at least 4 characters.
+                          </div>
+                        </div>
+                      </div>
+                      
+
+                     
+                      <div class="col-md-3">
+                            <label>last Name:</label>
+                            <input type="text" #patientlName="ngModel" minlength="4" maxlength="10" required class="form-control" name="patientlName" [(ngModel)]="currentPatient.lastName"
+                              ngModel>
+                            <div *ngIf="patientlName.errors && (patientlName.dirty || patientlName.touched)" class="alert alert-danger">
+                              <div [hidden]="!patientlName.errors.required">
+                                Please enter a valid last name.
+                              </div>
+                              <div [hidden]="!patientlName.errors.minlength">
+                                Please enter at least 4 characters.
+                              </div>
+                            </div>
+                          </div>
+                         
+
+                          
+                          <div class="col-md-3">
+                                <label>DOB:</label><br>
+                                <input type="date" name="Dob" min="2000-01-02" [(ngModel)]="currentPatient.dob" >
+                                                      
+                              
+                          
+                                <label>Gender:</label><br>
+                                <select [(ngModel)]="currentPatient.gender" name="gender">
+                                        
+                                        <option *ngFor="let n of patGender" [value]="n">{{n}}</option>
+                                 </select>
+                                                      
+                              </div>
+                            
+                        </tr>
+                      
+
+                        <tr>
+                            <h4 align="center" style="background-color: powderblue;font-family:arial;width:100%">Address Information</h4>
+                          <div class="col-md-3">
+                                    <label>Street:</label>
+                                    <input type="text" #street="ngModel" minlength="4" maxlength="10" required class="form-control" name="street" [(ngModel)]="currentPatient.address.street"
+                                      ngModel>
+                                    <div *ngIf="street.errors && (street.dirty || street.touched)" class="alert alert-danger">
+                                      <div [hidden]="!street.errors.required">
+                                        Please enter a valid last name.
+                                      </div>
+                                      <div [hidden]="!street.errors.minlength">
+                                        Please enter at least 4 characters.
+                                      </div>
+                                    </div>
+                                  </div>
+                                
+                                  <div class="col-md-3">
+                                        <label>City:</label>
+                                        <input type="text" #city="ngModel" minlength="4" maxlength="10" required class="form-control" name="city" [(ngModel)]="currentPatient.address.city"
+                                          ngModel>
+                                        <div *ngIf="city.errors && (city.dirty || city.touched)" class="alert alert-danger">
+                                          <div [hidden]="!city.errors.required">
+                                            Please entera valid city name.
+                                          </div>
+                                          <div [hidden]="!city.errors.minlength">
+                                            Please enter at least 4 characters.
+                                          </div>
+                                        </div>
+                                      </div>
+                                    
+                                      <div class="col-md-3">
+                                            <label>State:</label>
+                                            <input type="text" #state="ngModel" minlength="2" maxlength="2" required class="form-control" name="state" [(ngModel)]="currentPatient.address.state"
+                                              ngModel>
+                                            <div *ngIf="state.errors && (state.dirty || state.touched)" class="alert alert-danger">
+                                              <div [hidden]="!state.errors.required">
+                                                Please a valid state name.
+                                              </div>
+                                              <div [hidden]="!state.errors.minlength">
+                                                Please enter at least 2 characters.
+                                              </div>
+                                            </div>
+                                          </div>
+                                         
+                                          <div class="col-md-3">
+                                                <label> ZipCode:</label>
+                                                <input type="text" #patientZip="ngModel" pattern="^[1-9][0-9]{4}$" class="form-control" name="patientZip" [(ngModel)]="currentPatient.address.zipCode" ngModel>
+                                                <div *ngIf="patientZip.errors && (patientZip.dirty || patientZip.touched)" class="alert alert-danger">
+                                                  <div [hidden]="!patientZip.errors.pattern">
+                                                    Please enter a valid five digit Zip code.
+                                                  </div>
+                                                </div>
+                                              </div>
+                                              
+                                          </tr>
+
+                                          <tr>
+                                              <h4 align="center"style="background-color: powderblue;font-family:arial;width:100%">Contact Information</h4>
+                                             <div class="col-md-3">
+                                            <label>Email:</label>
+                                            <input type="text" #email="ngModel" minlength="9" maxlength="20" required class="form-control" name="email" [(ngModel)]="currentPatient.contactInfo.email"
+                                              ngModel>
+                                            <div *ngIf="email.errors && (email.dirty || email.touched)" class="alert alert-danger">
+                                              <div [hidden]="!email.errors.required">
+                                                Please a valid email.
+                                              </div>
+                                              <div [hidden]="!email.errors.minlength">
+                                                Please enter at least 9 characters.
+                                              </div>
+                                            </div>
+                                          </div>  
+                           
+                                          <div class="col-md-3">
+                                                <label> HomeNumber:</label>
+                                                <input type="text" #HomeNumber="ngModel" pattern="^[1-9][0-9]{8}$" class="form-control" name="HomeNumber" [(ngModel)]="currentPatient.contactInfo.homePhone" ngModel>
+                                                <div *ngIf="HomeNumber.errors && (HomeNumber.dirty || HomeNumber.touched)" class="alert alert-danger">
+                                                  <div [hidden]="!HomeNumber.errors.pattern">
+                                                    Please enter a valid nine digit .
+                                                  </div>
+                                                </div>
+                                              </div>
+                         
+                                              <div class="col-md-3">
+                                                    <label> PhoneNumber:</label>
+                                                    <input type="text" #PhoneNumber="ngModel" pattern="^[1-9][0-9]{8}$" class="form-control" name="PhoneNumber" [(ngModel)]="currentPatient.contactInfo.cellPhone" ngModel>
+                                                    <div *ngIf="PhoneNumber.errors && (PhoneNumber.dirty ||PhoneNumber.touched)" class="alert alert-danger">
+                                                      <div [hidden]="!PhoneNumber.errors.pattern">
+                                                        Please enter a valid nine digit .
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                
+                                                  <div class="col-md-3">
+                                                        <label>MethodOfContact:</label><br>
+                                                       
+                                                          <select [(ngModel)]="currentPatient.contactInfo.method" name="method">
+                                                            
+                                                            <option *ngFor="let m of patMethod" [value]="m">{{m}}</option>
+                                                     </select>                                                                                                        
+                                                      </div>
+                                                      
+                        
+                            </tr>
+                            <br>
+                            <br>
+                              <tr>
+                                  <div class="col-md-6">
+                                    <button *ngIf="activate" type="button" class="btn btn-info"(click)="activateStatus()" >Activate</button> 
+                                    <button *ngIf="deactivate" type="button" class="btn btn-info" (click)="deactivateStatus()" >De-activate</button> 
+                        <button [disabled]="!userForm.form.valid" (click)="save()" class="btn btn-success" >Save</button>
+                        <button type="reset" class="btn btn-info">Reset</button>
+                        <button  class="btn btn-info"(click) = "_location.back()">Back</button>
+                                  </div>
+                      </tr>  
+                      </form>
+            
+            
+            
+
+           </table>
+               
+
+
+            
+            </div>
+            <div class="tab-pane" id="All">
+                    
+                        <div >
+                            <br>
+                          <label>Patient Name:</label> {{currentPatient.lastName}},{{currentPatient.firstName}}
+                            
+                            </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                    <label> AllergyCode:</label>
+                                    <input type="text" #allergyCode="ngModel" pattern="^[1-9][0-9]{3}$" class="form-control" name="allergyCode" [(ngModel)]="currentAllergy.allergyCode" (blur)="reset()"on-keypress="onKeyPress($event)" ngModel>
+                                    <div *ngIf="allergyCode.errors && (allergyCode.dirty || allergyCode.touched)" class="alert alert-danger">
+                                      <div [hidden]="!allergyCode.errors.pattern">
+                                        Please enter a valid four digit Zip code.
+                                      </div>
+                                    </div>
+                                  </div>
+                                  
+                                  <div class="col-md-4">
+                                        <label>Allergy:Desription</label>
+                                        <label type="text"  class="form-control" name="allergy" >{{currentAllergy.allergyDescription}}</label>
+                                        <br>
+                                           
+                                      </div>
+                                                                       
+                                      <br>
+                                      <div>
+                                       <!-- <button  class="btn btn-info"(click) = "searchAllergy()">Search</button> -->
+                                        <!-- <button type="reset" class="btn btn-info" (click) ="reset()">Reset</button> -->
+                                        <button *ngIf="showadd" type="button" class="btn btn-info" (click)="createPatientAllergy()">Add Allergy</button>
+                                        </div>
+
+                                        <div *ngIf="showAllergies">
+                                            <div class= "table-responsive" style="width:100%">
+                                              <table class="table table-hover table-bordered" align="center" style="width:100%">
+                                                     
+                                                  <tr *ngIf="allList && allList.length"  style="background-color: powderblue;font-family:arial;width:100%">
+                                                              
+                                                                  <th style="text-align:center">PatientAllergy Id</th>
+                                                               
+                                                                  <th style="text-align:center">Allergy Id</th>
+                                                                  <th style="text-align:center">Allergy Code</th>
+                                                                  <th style="text-align:center">Allergy Details</th>
+                                                                 
+                                                                  <th style="text-align:center">Date Created</th>
+                                                                  <th></th>
+                                                              </tr>
+                                                              <tr *ngFor="let all of allList"   style="font-family:arial;width:100%" >
+                                                                <td style="text-align:center">{{all.patientAllergyId}}  </td>
+                                                                <td style="text-align:center">{{all.allergyId}}  </td>
+                                                                <td style="text-align:center">{{all.searchAllergyCode}}  </td>
+                                                                <td style="text-align:center">{{all.searchAllergyDescription}}  </td>
+                                                               
+                                                                <td style="text-align:center">{{all.dateCreated |date}}</td>
+                                                                <td style="text-align:center" (click)="removePatientAllergy(all)"><button>Remove</button></td>
+                                                             </tr>     
+                                                     
+                                              </table>
+                                            </div>
+                                          </div>
+                                              
+
+<br><br>
+                                        <div>
+                                           
+                                        <!-- <button [disabled]="!userForm.form.valid" type="submit" class="btn btn-success"(click)="save1()" >Save</button> -->
+                                        
+                                        <!-- <button  class="btn btn-info"(click) = "_location.back()">Back</button> -->
+                                      </div>
+                                    
+                                    </div>
+                    
+                    </div>
+            </div>
+            
